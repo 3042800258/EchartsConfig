@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>饼图</title>
+    <script src="./lib/echarts.min.js"></script>
+    <style>
+        #main {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+
+    </div>
+    <script>
+        let mCharts = echarts.init(document.getElementById('main'))
+        let pieData = [
+            {
+                name: '淘宝',
+                value: 12322
+            },
+            {
+                name: '京东',
+                value: 28333
+            },
+            {
+                name: '苏宁',
+                value: 8222
+            },
+            {
+                name: '拼多多',
+                value: 9999
+            },
+            {
+                name: '其他',
+                value: 4111
+            }
+        ]
+        let option = {
+            series: [
+                {
+                    // 饼图
+                    type: 'pie',
+                    data: pieData,
+                    // 设置提示信息
+                    label: {
+                        show: true,
+                        formatter: function(arg) {
+                            console.log(arg)
+                            console.log(arg.name, arg.percent, arg.value)
+                            let name = arg.name
+                            let percent = arg.percent
+                            let value = arg.value
+                            return `${arg.name}平台\n${arg.percent}%\n${arg.value}元`
+                        }
+                    },
+                    // 饼图半径 px
+                    // radius: 60
+                    // 饼图半径 百分百(取宽或高中跟小的值)
+                    // width:800 height: 600 半径50% = 600 / 2 / * 50% = radiu: 150
+                    radius: '50%',
+                    // 圆环效果
+                    // radius: ['50%', '75%']
+                    // 南丁格尔图
+                    roseType: 'radius',
+                    // 选中的项偏移一段距离
+                    selectedMode: 'multiple'
+                }
+            ]
+        }
+        mCharts.setOption(option)
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>ECharts</title>
+     <script src="lib/echarts.min.js"></script>
+ </head>
+ <style>
+     #echarts1 {
+         width: 500px;
+         height: 500px;
+     }
+ </style>
+ <body>
+     <div id="echarts1">
+
+     </div>
+     <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myCharts = echarts.init(document.getElementById('echarts1'));
+        var NameDataArr = ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        var ValueDataArr1 = [22, 33, 59, 21, 92, 18]
+        var ValueDataArr2 = [92, 20, 10, 10, 19, 82]
+        var option = {
+        // 标题配置
+          title: {
+            text: '基本配置',
+            textStyle: {
+                color: 'red'
+            },
+            // 标题边框
+            borderWidth: 2,
+            // 标题颜色
+            borderColor: 'skyblue',
+            // 标题边框半径
+            borderRadius: 10,
+            // 标题位置
+            left: 50,
+            top: 10
+          },
+          // 提示框组件
+          tooltip: {
+            // trigger: 'item'
+            // 鼠标点击每项轴上弹出提示框
+            trigger: 'axis',
+            // 设置触发时间为点击后
+            triggerOn: 'click',
+            // 格式化字符串模板
+            // {b}为模板变量类目值
+            // {c}为模板变量数值
+            // formatter: '{b}的销量是{c}'
+
+            // 函数方式
+            formatter: function(arg) {
+                let v = arg[0].name + arg[0].seriesName + arg[0].value
+                console.log(v)
+                return v
+            }
+          },
+          // 工具栏
+          toolbox: {
+             feature: {
+                 // 导出图片
+                 saveAsImage: {},
+                 // 数据视图（可以修改）
+                 dataView: {},
+                 // 重置
+                 restore: {},
+                 // 区域缩放
+                 dataZoom: {},
+                 // 动态图表切换
+                 magicType: {
+                     type: ['bar', 'line']
+                 }
+             }
+          },
+          // 筛选系列
+          legend: {
+            data: ['销量', '价格']
+          },
+          // X轴显示值
+          xAxis: {
+              // 数值轴
+            type: 'value'
+          },
+          // Y轴显示数据
+          yAxis: {
+              // 类目轴
+              type: 'category',
+              data: NameDataArr
+          },
+          series: [
+            {
+              name: '销量',
+              // 柱状图
+              // type: 'bar',
+              // 折线图
+              type: 'line',
+              // 值
+              data: ValueDataArr1,
+              markPoint: {
+                  data: [
+                      {
+                          type: 'max', name: '最大值'
+                      },
+                      {
+                          type: 'min', name: '最小值'
+                      }
+                  ]
+              },
+              markLine: {
+                  data: [
+                      {
+                          type: 'average', name: '平均值'
+                      }
+                  ]
+              },
+              // 值标签设置
+              label: {
+                  // 显示值
+                  show: true,
+                  // 值旋转60度
+                  rotate: 60,
+                  // 值再顶部显示
+                  position: 'top'
+              }
+            }, 
+            {
+                name: '价格',
+                type: 'bar',
+                data: ValueDataArr2
+            }
+          ]
+        };
+  
+        // 使用刚指定的配置项和数据显示图表。
+        myCharts.setOption(option);
+    </script>
+ </body>
+ </html>

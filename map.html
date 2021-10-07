@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地图</title>
+    <script src="./lib/echarts.min.js"></script>
+    <script src="./lib/axios.min.js"></script>
+    <style>
+        #app {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+    <script>
+        let mCharts = echarts.init(document.getElementById('app'))
+        let url = 'json/map/china.json'
+        async function getMap(url) {
+            let res = await axios.get(url)
+            return res.data
+        }
+        let mapData = getMap(url).then((value => {
+            echarts.registerMap('chinaMap', value)
+            let option = {
+                geo: {
+                    type: 'map',
+                    map: 'chinaMap'
+                }
+            }
+            mCharts.setOption(option)
+        }))
+
+    </script>
+</body>
+
+</html>

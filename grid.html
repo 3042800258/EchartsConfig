@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网格grid</title>
+    <script src="./lib/echarts.min.js"></script>
+    <style>
+        #grid_box {
+            width: 800px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="grid_box">
+    </div>
+    <script>
+        let grid_dom = document.getElementById('grid_box')
+        let myCharts = echarts.init(grid_dom)
+        let xAxisData = ['1月', '2月', '3月', '4月', '5月', '6月']
+        let yAxisData = [41, 22, 72, 17, 87, 38]
+        let option = {
+            // 缩放
+            dataZoom: [
+                {
+                    // 滑块方式
+                    type: 'slider',
+                    // 鼠标滚轮方式
+                    // type: 'inside',
+
+                    // 作用第0个x轴
+                    xAxisIndex: 0
+                },
+                {
+                    type: 'slider',
+                    // 作用第0个y轴
+                    yAxisIndex: 0,
+                    // 筛选值为0到40%的数据
+                    start: 0,
+                    end: 40
+                }
+            ],
+            grid: {
+                // 显示网格
+                show: true,
+                // 设置网格边框大小
+                borderWidth: 2,
+                // 设置网格颜色
+                borderColor: 'hotpink',
+                // 设置左边距离
+                left: 100,
+                // 右
+                top: 100,
+                // 设置宽高
+                width: 400,
+                height: 200,
+            },
+            xAxis: {
+                type: 'category',
+                data: xAxisData
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '销量',
+                    type: 'bar',
+                    data: yAxisData
+                }
+            ]
+        }
+        myCharts.setOption(option)
+    </script>
+</body>
+</html>
